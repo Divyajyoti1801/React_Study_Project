@@ -13,6 +13,7 @@ import { initializeApp } from "firebase/app";
 
 //Import some important functions from Firebase API to add features like authentication storage + Storing/Fetching Data.
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -41,10 +42,10 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 //Creates App instance for us. (help us to attach the instance we have on firebase)
 
-//Initialize a provider
-const provider = new GoogleAuthProvider();
+//Initialize a Google provider
+const googleProvider = new GoogleAuthProvider();
 //Configuration for google provider to select account while sign in or sign Up. This will generate prompt.
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
@@ -52,9 +53,11 @@ provider.setCustomParameters({
 export const auth = getAuth();
 
 //We need to export signIn with pop up facility.
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
 
 //Working with Firestore
+
 //Create instance for firestore;
 export const db = getFirestore();
 
@@ -63,7 +66,11 @@ export const db = getFirestore();
 Since we all know this document is not present in firestore but google still return us object. Google did this because it points to something unique in database. Google want us to use this in order to create document in database.
 
 */
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
+  if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
   console.log(userDocRef);
   const userSnapshot = await getDoc(userDocRef);
@@ -81,6 +88,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createAt,
+        ...additionalInformation,
       });
     } catch (error) {
       console.log(
@@ -89,4 +97,10 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     }
   }
   return userDocRef;
+};
+
+//Create Authentication User with the help of Raw Email and Password
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return await createUserWithEmailAndPassword(auth, email, password);
 };

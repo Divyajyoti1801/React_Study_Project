@@ -3,6 +3,9 @@ import {
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 
+import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
+
+//Sign In Page
 const SignIn = () => {
   //We are creating functional handler
   const logGoogleUser = async () => {
@@ -14,6 +17,7 @@ const SignIn = () => {
     <div>
       <h1>Sign In Page</h1>
       <button onClick={logGoogleUser}>Sign In With Google PopUp</button>
+      <SignUpForm />
     </div>
   );
 };
