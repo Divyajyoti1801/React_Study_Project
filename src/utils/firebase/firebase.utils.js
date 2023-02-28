@@ -18,6 +18,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 
 //Import some important methods to use Cloud Firestore effectively.
@@ -104,3 +105,12 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   return await createUserWithEmailAndPassword(auth, email, password);
 };
+
+//Signing with email and password
+export const signInWithAuthUserWithEmailAndPassword = (email, password) => {
+  if (!email || !password) return;
+  return signInWithEmailAndPassword(auth, email, password);
+};
+
+//SignOut User
+export const singOutUser = async () => await signOut(auth);
