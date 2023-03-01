@@ -16,6 +16,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -73,7 +74,6 @@ export const createUserDocumentFromAuth = async (
 ) => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
-  console.log(userDocRef);
   const userSnapshot = await getDoc(userDocRef);
   /*
    userSnapshot.exists() can be use to check wether Doc really exists in database or not.
@@ -113,4 +113,8 @@ export const signInWithAuthUserWithEmailAndPassword = (email, password) => {
 };
 
 //SignOut User
-export const singOutUser = async () => await signOut(auth);
+export const signOutUser = async () => await signOut(auth);
+
+//OnAuthState Changed Listener
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
