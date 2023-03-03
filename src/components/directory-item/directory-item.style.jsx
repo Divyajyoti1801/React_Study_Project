@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-export const CategoriesContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
 
 export const BackgroundImage = styled.div`
   width: 100%;
@@ -15,7 +9,7 @@ export const BackgroundImage = styled.div`
   background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
-export const CategoryBodyContainer = styled.div`
+export const Body = styled.div`
   height: 90px;
   padding: 0 25px;
   display: flex;
@@ -51,24 +45,24 @@ export const DirectoryItemContainer = styled.div`
   margin: 0 7.5px 15px;
   overflow: hidden;
 
+  &:first-child {
+    margin-right: 0.75em;
+  }
+
+  &:last-child {
+    margin-left: 0.75rem;
+  }
+
   &:hover {
     cursor: pointer;
 
     & ${BackgroundImage} {
       transform: scale(1.1);
-      transition: transform 6s cubic-cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
     }
 
-    & ${CategoryBodyContainer} {
+    & ${Body} {
       opacity: 0.9;
-    }
-
-    &:first-child {
-      margin-right: 0.75em;
-    }
-
-    &:last-child {
-      margin-left: 0.75rem;
     }
   }
 `;

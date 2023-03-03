@@ -5,14 +5,20 @@ import App from './App';
 import './index.scss';
 
 //Context Based imports
-import { UserProvider } from './context/user.context';
+import { CartProvider } from "./context/cart.context";
+import { ProductsProvider } from "./context/product.context";
+import { UserProvider } from "./context/user.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductsProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
