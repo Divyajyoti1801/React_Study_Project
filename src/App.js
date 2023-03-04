@@ -4,6 +4,7 @@ import Navigation from "./Router/navigation/navigation.router";
 //This is where all routes are present this is like main function of project.
 
 import Authentication from "./Router/authentication/authentication.router";
+import Checkout from "./Router/checkout/checkout.router";
 import Shop from "./Router/shop/shop.router";
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="auth" element={<Authentication />} />
         <Route path="shop" element={<Shop />} />
+        <Route path="checkout" element={<Checkout />} />
       </Route>
     </Routes>
   );
