@@ -5,7 +5,11 @@ import {
   Total,
 } from "./checkout.styles";
 
+import { useContext } from "react";
+import { CartContext } from "../../context/cart.context";
+
 const Checkout = () => {
+  const { cartItems, cartTotal } = useContext(CartContext);
   return (
     <CheckoutContainer>
       <CheckoutHeader>
@@ -25,7 +29,10 @@ const Checkout = () => {
           <span>Remove</span>
         </HeaderBlock>
       </CheckoutHeader>
-      <Total>TOTAL: $2000</Total>
+      {cartItems.map((cartItem) => (
+        <Checkout key={cartItem.id} cartItem={cartItem} />
+      ))}
+      <Total>TOTAL: ${cartTotal}</Total>
     </CheckoutContainer>
   );
 };
