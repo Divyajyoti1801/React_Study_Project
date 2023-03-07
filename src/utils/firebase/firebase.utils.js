@@ -28,7 +28,14 @@ doc: is actually needed to get documents from firestore database.
 getDoc: to read the documents.
 setDoc: to write the documents.
 */
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+  writeBatch,
+} from "firebase/firestore";
 
 //Inorder access firebase the required object
 const firebaseConfig = {
@@ -68,6 +75,25 @@ export const db = getFirestore();
 Since we all know this document is not present in firestore but google still return us object. Google did this because it points to something unique in database. Google want us to use this in order to create document in database.
 
 */
+
+//Add Collection and Document from outside Data
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const batch = writeBatch(db);
+  const collectionRef = collection(db, collectionKey);
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log("DONE");
+};
+
+
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
