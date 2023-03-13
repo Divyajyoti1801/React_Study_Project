@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-
 import ProductCard from "../../components/product-card/product-card.component";
 
 import { useParams } from "react-router-dom";
